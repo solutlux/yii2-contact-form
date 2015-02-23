@@ -27,7 +27,10 @@ class ContactForm extends Model
             [['name', 'body'], 'required'],
             // email has to be a valid email address
             ['email', 'email', 'skipOnEmpty' => false],
-            // verifyCode needs to be entered correctly
+			[['name', 'email'], 'string', 'max' => 255],
+			['phone', 'string', 'max' => 35],
+			['body', 'string', 'max' => 1000],
+			// verifyCode needs to be entered correctly
             //['verifyCode', 'captcha'],
         ];
     }
@@ -38,23 +41,33 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            //'verifyCode' => 'Verification Code',
+            'name' => 'ФИО',
+			'phone' => 'Телефон',
+			'body'	=> 'Ваше сообщение...',		
         ];
     }
 
     /**
      * Sends an email to the specified email address using the information collected by this model.
      * @param  string  $email the target email address
+	 * @param  string  $subject email subject
      * @return boolean whether the model passes validation
      */
-    public function contact($email)
+    public function contact($email, $subject)
     {
-        if ($this->validate()) {
-            Yii::$app->mailer->compose()
-                ->setTo($email)
+       
+		if ($this->validate()) {
+            Yii::$app->mailer
+				->compose([
+					'text' => 'contact', 
+				], [
+					'body' => $this->body,
+					'phone' => $this->phone,
+				])
+				->setTo($email)
+				->setCc([$this->email => $this->name])
                 ->setFrom([$this->email => $this->name])
-                ->setSubject($this->subject)
-                ->setTextBody($this->body)
+                ->setSubject($subject)
                 ->send();
 
             return true;

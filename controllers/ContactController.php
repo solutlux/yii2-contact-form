@@ -11,15 +11,16 @@ class ContactController extends Controller
 	public function actionContact()
     {
         $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
- 
-            return $this->refresh();
-        } else {
-            return $this->render('index', [
-                'model' => $model,
-            ]);
-        }
+		$options = [
+			'model' => $model,
+			'success' => false,
+		];
+		
+        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'], Yii::$app->params['contactEmailSubject'])) {
+			$options['success'] = true;
+		}
+		
+		return $this->renderPartial('contact', $options);
     }
 	
 }
