@@ -13,7 +13,7 @@ class ContactForm extends Model
     public $name;
     public $email;
 	public $phone;
-    //public $subject;
+	public $subject;
     public $body;
     //public $verifyCode;
 
@@ -29,6 +29,7 @@ class ContactForm extends Model
             ['email', 'email', 'skipOnEmpty' => false],
 			[['name', 'email'], 'string', 'max' => 255],
 			['phone', 'string', 'max' => 35],
+			['subject', 'string', 'max' => 200],
 			['body', 'string', 'max' => 1000],
 			// verifyCode needs to be entered correctly
             //['verifyCode', 'captcha'],
@@ -43,6 +44,7 @@ class ContactForm extends Model
         return [
             'name' => 'ФИО',
 			'phone' => 'Телефон',
+			'subject' => 'Выберите тему сообщения',
 			'body'	=> 'Ваше сообщение...',		
         ];
     }
@@ -57,7 +59,10 @@ class ContactForm extends Model
     {
        
 		if ($this->validate()) {
-            Yii::$app->mailer
+            if (strlen($this->subject)) {
+				$subject = $this->subject;
+			}
+			Yii::$app->mailer
 				->compose([
 					'text' => 'contact', 
 				], [
