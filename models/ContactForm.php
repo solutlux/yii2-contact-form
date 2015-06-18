@@ -44,7 +44,7 @@ class ContactForm extends Model
         return [
             'name' => 'ФИО',
 			'phone' => 'Телефон',
-			'subject' => 'Выберите тему сообщения',
+			'subject' => 'Тема сообщения',
 			'body'	=> 'Ваше сообщение...',		
         ];
     }
