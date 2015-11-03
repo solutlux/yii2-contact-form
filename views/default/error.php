@@ -1,6 +1,9 @@
 <?php
 
+namespace app\modules\main;
+
 use yii\helpers\Html;
+use Yii;
 
 /* @var $this yii\web\View */
 /* @var $name string */
@@ -8,7 +11,7 @@ use yii\helpers\Html;
 /* @var $exception Exception */
 
 if ($exception->statusCode == 404) {
-	$this->title = 'Страница не найдена';
+	$this->title = Module::t('main', 'Page not found');
 	//$message
 } else {
 	$this->title = $name;
@@ -18,7 +21,7 @@ if ($exception->statusCode == 404) {
 	
 	<?php if ($exception->statusCode == 404) : ?>
 	<h3>
-        К сожалению такой страницы нет на нашем сайте
+        <?= Module::t('main', 'Unfortunately this page was not found on our website') ?>
     </h3>
     <?php else : ?>
 	
