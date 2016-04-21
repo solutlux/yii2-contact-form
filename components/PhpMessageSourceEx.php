@@ -2,45 +2,47 @@
 
 namespace app\modules\main\components;
 
-class UrlHelper {
+use Yii;
+
+class PhpMessageSourceEx extends \yii\i18n\PhpMessageSource {
 
     /**
-     * Format file path by adding datetime and language code segment if nesessary
-     * @param $filePath path from to the assets folder (without first slash)
-     * @return string
+     * Loads the message translation for the specified $language and $category.
+     * If translation for specific locale code such as `en-US` isn't found it
+     * tries more generic `en`. When both are present, the `en-US` messages will be merged
+     * over `en`. See [[loadFallbackMessages]] for details.
+     * If the $language is less specific than [[sourceLanguage]], the method will try to
+     * load the messages for [[sourceLanguage]]. For example: [[sourceLanguage]] is `en-GB`,
+     * $language is `en`. The method will load the messages for `en` and merge them over `en-GB`.
+     *
+     * @param string $category the message category
+     * @param string $language the target language
+     * @return array the loaded messages. The keys are original messages, and the values are the translated messages.
+     * @see loadFallbackMessages
+     * @see sourceLanguage
      */
-    public static function getCachedUrl($filePath) {
+    public static function getAllMessages($category, $language) {
 
-        try {
-            $fileTime = '';
+        $i18nMessages = \Yii::$app->getI18n()->getMessageSource($category);
 
-            //define file path with language code
-            $filePathArr = explode('/', $filePath);
-            $filePathArr[count($filePathArr)] = $filePathArr[count($filePathArr) - 1];
-            $filePathArr[count($filePathArr) - 2] = \Yii::$app->language;
-            $filePathWithLang = implode('/', $filePathArr);
+        $messageFile = $i18nMessages->getMessageFilePath($category, $language);
+        
+        $messages = $i18nMessages->loadMessagesFromFile($messageFile);
 
-            //define absolute and relative file path
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . @\Yii::$app->params['assetsPath'] . $filePathWithLang)) {
-                $fileAbsPath = $_SERVER['DOCUMENT_ROOT'] . @\Yii::$app->params['assetsPath'] . $filePathWithLang;
-                $filePathToSetup = $filePathWithLang;
-            } else {
-                $fileAbsPath = $_SERVER['DOCUMENT_ROOT'] . @\Yii::$app->params['assetsPath'] . $filePath;
-                $filePathToSetup = $filePath;
+        $fallbackLanguage = substr($language, 0, 2);
+        $fallbackSourceLanguage = substr($i18nMessages->sourceLanguage, 0, 2);
+
+        if ($language !== $fallbackLanguage) {
+            $messages = $i18nMessages->loadFallbackMessages($category, $fallbackLanguage, $messages, $messageFile);
+        } elseif ($language === $fallbackSourceLanguage) {
+            $messages = $i18nMessages->loadFallbackMessages($category, $i18nMessages->sourceLanguage, $messages, $messageFile);
+        } else {
+            if ($messages === null) {
+                Yii::error("The message file for category '$category' does not exist: $messageFile", __METHOD__);
             }
-
-            //add datetime parameter 
-            if (file_exists($fileAbsPath)) {
-                $fileTime = ((strpos($filePath, '?')) ? '&' : '?') . 'v=' . filemtime($fileAbsPath);
-
-                $filePath = @\Yii::$app->params['assetsPath'] . $filePathToSetup . $fileTime;
-
-            }
-        } catch (Exception $exc) {
-            
         }
 
-        return $filePath;
+        return (array) $messages;
     }
 
 }
