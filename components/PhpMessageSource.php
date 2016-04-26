@@ -4,7 +4,7 @@ namespace app\modules\main\components;
 
 use Yii;
 
-class PhpMessageSourceEx extends \yii\i18n\PhpMessageSource {
+class PhpMessageSource extends \yii\i18n\PhpMessageSource {
 
     /**
      * Loads the message translation for the specified $language and $category.
