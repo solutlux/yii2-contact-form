@@ -2,14 +2,18 @@
 
 namespace app\modules\main\components;
 
-class UrlHelper {
+use Yii;
+
+class UrlHelper
+{
 
     /**
-     * Format file path by adding datetime and language code segment if nesessary
-     * @param $filePath path from to the assets folder (without first slash)
+     * Format file path by adding datetime and language code segment if necessary
+     * @param string $filePath path from to the assets folder (without first slash)
      * @return string
      */
-    public static function getCachedUrl($filePath) {
+    public static function getCachedUrl($filePath)
+    {
 
         try {
             $fileTime = '';
@@ -17,15 +21,15 @@ class UrlHelper {
             //define file path with language code
             $filePathArr = explode('/', $filePath);
             $filePathArr[count($filePathArr)] = $filePathArr[count($filePathArr) - 1];
-            $filePathArr[count($filePathArr) - 2] = \Yii::$app->language;
+            $filePathArr[count($filePathArr) - 2] = Yii::$app->language;
             $filePathWithLang = implode('/', $filePathArr);
 
             //define absolute and relative file path
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . @\Yii::$app->params['assetsPath'] . $filePathWithLang)) {
-                $fileAbsPath = $_SERVER['DOCUMENT_ROOT'] . @\Yii::$app->params['assetsPath'] . $filePathWithLang;
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . @Yii::$app->params['assetsPath'] . $filePathWithLang)) {
+                $fileAbsPath = $_SERVER['DOCUMENT_ROOT'] . @Yii::$app->params['assetsPath'] . $filePathWithLang;
                 $filePathToSetup = $filePathWithLang;
             } else {
-                $fileAbsPath = $_SERVER['DOCUMENT_ROOT'] . @\Yii::$app->params['assetsPath'] . $filePath;
+                $fileAbsPath = $_SERVER['DOCUMENT_ROOT'] . @Yii::$app->params['assetsPath'] . $filePath;
                 $filePathToSetup = $filePath;
             }
 
@@ -37,7 +41,7 @@ class UrlHelper {
 
             }
         } catch (Exception $exc) {
-            
+
         }
 
         return $filePath;
