@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\main;
+namespace almeyda\yii2mainmodule;
 
 use yii\helpers\Html;
 use Yii;
