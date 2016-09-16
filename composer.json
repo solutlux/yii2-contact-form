@@ -23,7 +23,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"almeyda\\\yii2mainmodule\\": ""
+			"almeyda\\yii2mainmodule\\": ""
 		}
 	}
 }
