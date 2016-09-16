@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\main\controllers;
+namespace almeyda\yii2mainmodule\controllers;
  
 use app\modules\main\models\ContactForm;
 use yii\web\Controller;

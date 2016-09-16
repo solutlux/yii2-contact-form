@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\main\components;
+namespace almeyda\yii2mainmodule\components;
 
 use Yii;
 

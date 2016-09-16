@@ -27,7 +27,7 @@ Once the extension is installed, modify your application configuration to includ
 
 ```php
 return [
-	'components' => [
+	'modules' => [
         ...
         'main' => [
             'class' => 'almeyda\yii2mainmodule\Module',
