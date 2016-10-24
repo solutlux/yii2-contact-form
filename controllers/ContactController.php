@@ -2,7 +2,7 @@
 
 namespace almeyda\yii2mainmodule\controllers;
  
-use app\modules\main\models\ContactForm;
+use almeyda\yii2mainmodule\models\ContactForm;
 use yii\web\Controller;
 use Yii;
  
