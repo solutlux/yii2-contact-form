@@ -1,6 +1,6 @@
 <?php
 
-namespace almeyda\yii2mainmodule\models;
+namespace solutlux\yii2contactform\models;
 
 use Yii;
 use yii\base\Model;

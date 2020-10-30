@@ -1,18 +1,17 @@
 {
-	"name": "almeyda/yii2-main-module",
-	"description": "main module",
+	"name": "solultux/yii2-contact-form",
+	"description": "contact form module",
 	"keywords": [
 		"yii2",
-		"yii2-cms",
-		"content management"
+		"contact form"
 	],
 	"type": "yii2-extension",
 	"homepage": "https://almeyda.repositoryhosting.com/git/almeyda/yii2-main-module.git",
 	"license": "APACHE 2.0",
 	"authors": [{
 			"name": "Dmitriy Evdokimov",
-			"email": "dmitriy@almeydahost.com",
-			"homepage": "http://almeydahost.com",
+			"email": "dmitriy@solutlux.com",
+			"homepage": "https://solutlux.com",
 			"role": "Developer"
 		}
 	],
@@ -23,7 +22,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"almeyda\\yii2mainmodule\\": ""
+			"solutlux\\yii2contactform\\": ""
 		}
 	}
 }

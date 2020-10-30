@@ -1,7 +1,7 @@
-Emcms Module
+Yii2 contact form 
 ============
 
-Emcms Module is a simple client-side CMS module for Yii2. 
+Contact form is a simple module for Yii2. 
 
 ## Installation
 
@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-$ php composer.phar require almeyda/yii2-main-module "dev-master"
+$ php composer.phar require solutlux/yii2-contact-form "*"
 ```
 
 or add
 
 ```
-"almeyda/yii2-main-module": "dev-master"
+"solutlux/yii2-contact-form": "*"
 ```
 
 to the required section of your `composer.json` file.
@@ -30,7 +30,7 @@ return [
 	'modules' => [
         ...
         'main' => [
-            'class' => 'almeyda\yii2mainmodule\Module',
+            'class' => 'solutlux\yii2contactform\Module',
         ],
         ...
     ],	
@@ -40,5 +40,5 @@ return [
 
 ## License
 
-yii2-main-module is released under the Apache License 2.0. See the bundled [LICENSE.md](LICENSE.md) for details.
+yii2-contact-form is released under the Apache License 2.0. See the bundled [LICENSE.md](LICENSE.md) for details.
 
