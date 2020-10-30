@@ -2,7 +2,6 @@
 
 namespace solutlux\yii2contactform\models;
 
-use Yii;
 use yii\base\Model;
 
 /**
@@ -13,12 +12,12 @@ class ContactForm extends Model
     public $name;
     public $email;
     public $phone;
-    public $subject;
+    public $subject = '';
     public $body;
     //public $verifyCode;
 
     /**
-     * @return array the validation rules.
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -42,43 +41,46 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            'name' => Yii::t('app', 'Name'),
-            'email' => Yii::t('app', 'Email'),
-            'phone' => Yii::t('app', 'Phone'),
-            'subject' => Yii::t('app', 'Subject'),
-            'body'	=> Yii::t('app', 'Message'),
+            'name' => \Yii::t('app', 'Name'),
+            'email' => \Yii::t('app', 'Email'),
+            'phone' => \Yii::t('app', 'Phone'),
+            'subject' => \Yii::t('app', 'Subject'),
+            'body'	=> \Yii::t('app', 'Message'),
         ];
     }
 
     /**
      * Sends an email to the specified email address using the information collected by this model.
-     * @param  string  $email the target email address
-     * @param  string  $subject email subject
+     * @param  array $emails list of recipients' email addresses
+     * @param  string $subject email subject
+     * @param  array $cc list of cc email addresses
      * @return boolean whether the model passes validation
      */
-    public function contact($email, $subject)
+    public function contact($emails, $subject = '', $cc = [])
     {
-
-        if ($this->validate()) {
-            if (strlen($this->subject)) {
-                $subject = $this->subject;
+        $result = false;
+        if ((is_array($emails)) and (count($emails) > 0) and ($this->validate())) {
+            if (!strlen($this->subject)) {
+                $this->subject = $subject;
             }
-            Yii::$app->mailer
+            $mailer = \Yii::$app->mailer
                 ->compose([
                     'text' => 'contact',
                 ], [
                     'body' => $this->body,
                     'phone' => $this->phone,
                 ])
-                ->setTo($email)
-                ->setCc([$this->email => $this->name])
+                ->setTo($emails)
                 ->setFrom([$this->email => $this->name])
-                ->setSubject($subject)
-                ->send();
-
-            return true;
-        } else {
-            return false;
+                ->setSubject($this->subject);
+            
+            if ((is_array($cc)) and (count($cc) > 0)) {
+                $mailer->setCc($cc);
+            }
+    
+            $result = $mailer->send();
         }
+    
+        return $result;
     }
 }

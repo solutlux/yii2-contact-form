@@ -1,29 +1,30 @@
 <?php
 
 namespace solutlux\yii2contactform\controllers;
- 
-use almeyda\yii2mainmodule\models\ContactForm;
+
 use yii\web\Controller;
-use Yii;
- 
+
+/**
+ * render contact form and perform send action
+ * @return string
+ * @throws \yii\base\InvalidConfigException
+ */
 class ContactController extends Controller
 {
-	public function actionContact()
+    public function actionContact()
     {
-        $model = new ContactForm();
-		$options = [
-			'model' => $model,
-			'success' => false,
-		];
-		
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'], Yii::$app->params['contactEmailSubject'])) {
-			$options['success'] = true;
-		}
-		
-		return $this->renderPartial('contact', $options);
+        $model = \Yii::createObject($this->module->contactForm);
+        $options = [
+            'model' => $model,
+            'success' => false,
+        ];
+    
+        if (\Yii::$app->request->getIsPost()) {
+            if ($model->load(\Yii::$app->request->post()) && $model->contact($this->module->recipients, $this->module->subject)) {
+                $options['success'] = true;
+            }
+        }
+        
+        return $this->renderPartial('contact', $options);
     }
-	
 }
-
-
-

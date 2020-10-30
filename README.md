@@ -29,7 +29,7 @@ Once the extension is installed, modify your application configuration to includ
 return [
 	'modules' => [
         ...
-        'main' => [
+        'contact' => [
             'class' => 'solutlux\yii2contactform\Module',
         ],
         ...
