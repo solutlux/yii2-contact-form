@@ -11,9 +11,17 @@ use yii\web\Controller;
  */
 class ContactController extends Controller
 {
-    public function actionContact()
+    
+    /**
+     * Contact action
+     *
+     * @param string $subject
+     * @return string
+     */
+    public function actionContact($subject = null)
     {
         $model = \Yii::createObject($this->module->contactForm);
+        $model->subject = $subject;
         $options = [
             'model' => $model,
             'success' => false,

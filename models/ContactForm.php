@@ -3,18 +3,27 @@
 namespace solutlux\yii2contactform\models;
 
 use yii\base\Model;
+use yii\db\ActiveRecord;
 
 /**
  * ContactForm is the model behind the contact form.
  */
-class ContactForm extends Model
+class ContactForm extends ActiveRecord
 {
     public $name;
     public $email;
     public $phone;
-    public $subject = '';
+    public $subject;
     public $body;
     //public $verifyCode;
+    
+    /**
+     * @return string
+     */
+    public static function tableName()
+    {
+        return 'contact';
+    }
 
     /**
      * {@inheritdoc}
@@ -63,6 +72,7 @@ class ContactForm extends Model
             if (!strlen($this->subject)) {
                 $this->subject = $subject;
             }
+            $this->save();
             $mailer = \Yii::$app->mailer
                 ->compose([
                     'text' => 'contact',
