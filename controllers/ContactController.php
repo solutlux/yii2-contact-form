@@ -1,6 +1,6 @@
 <?php
 
-namespace solutlux\yii2contactform\controllers;
+namespace almeyda\yii2contactform\controllers;
 
 use yii\web\Controller;
 

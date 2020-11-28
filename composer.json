@@ -1,17 +1,17 @@
 {
-	"name": "solultux/yii2-contact-form",
+	"name": "almeyda/yii2-contact-form",
 	"description": "contact form module",
 	"keywords": [
 		"yii2",
 		"contact form"
 	],
 	"type": "yii2-extension",
-	"homepage": "https://github.com/solutlux/yii2-contact-form.git",
+	"homepage": "https://github.com/willarin/yii2-contact-form.git",
 	"license": "BSD-3-Clause",
-	"authors": [{
+	"authors": [
+		{
 			"name": "Dmitriy Evdokimov",
-			"email": "dmitriy@solutlux.com",
-			"homepage": "https://solutlux.com",
+			"email": "dmitriy@almeydahost.com",
 			"role": "Developer"
 		}
 	],
@@ -22,7 +22,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"solutlux\\yii2contactform\\": ""
+			"almeyda\\yii2contactform\\": ""
 		}
 	}
 }

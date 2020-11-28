@@ -1,8 +1,7 @@
 <?php
 
-namespace solutlux\yii2contactform\models;
+namespace almeyda\yii2contactform\models;
 
-use yii\base\Model;
 use yii\db\ActiveRecord;
 
 /**

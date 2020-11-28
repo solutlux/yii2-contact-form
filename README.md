@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-$ php composer.phar require solutlux/yii2-contact-form "*"
+$ php composer.phar require almeyda/yii2-contact-form "*"
 ```
 
 or add
 
 ```
-"solutlux/yii2-contact-form": "*"
+"almeyda/yii2-contact-form": "*"
 ```
 
 to the required section of your `composer.json` file.
@@ -30,7 +30,7 @@ return [
 	'modules' => [
         ...
         'contact' => [
-            'class' => 'solutlux\yii2contactform\Module',
+            'class' => 'almeyda\yii2contactform\Module',
         ],
         ...
     ],	
